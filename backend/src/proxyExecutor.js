@@ -1,5 +1,5 @@
 import FormData from "form-data"
-import {assertUrlIsSafe} from "./ssrfGuard.js";
+import {assertUrlIsSafe} from "./ssrfguard.js";
 import { filterInboundHeaders, filterOutboundHeaders } from "./headerFilter.js";
 
 const TIMEOUT_MS = 30_000;
