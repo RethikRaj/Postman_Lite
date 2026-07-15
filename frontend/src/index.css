@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #444;
+}
+
+/* JSON syntax highlighting */
+.json-key     { color: #fb923c; }  /* orange-400  — keys          */
+.json-string  { color: #4ade80; }  /* green-400   — string values */
+.json-number  { color: #22d3ee; }  /* cyan-400    — numbers       */
+.json-boolean { color: #f59e0b; }  /* amber-400   — true/false    */
+.json-null    { color: #c084fc; }  /* purple-400  — null          */
+
+/* Toast slide-in animation */
+@keyframes toast-in {
+  from { transform: translateY(0.75rem); opacity: 0; }
+  to   { transform: translateY(0);       opacity: 1; }
+}
+.toast-enter {
+  animation: toast-in 0.2s ease-out forwards;
+}
