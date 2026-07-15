@@ -47,11 +47,11 @@ function buildBody(bodyMode, body, formFields, headers) {
  */
 export async function executeProxyRequest({ method, url, headers, bodyMode, body, formFields }) {
     // 1. Validate + SSRF check ( Please disable it to hit localhost - Local testing)
-    // try {
-    //     await assertUrlIsSafe(url);
-    // } catch (e) {
-    //     return { success: false, errorType: e.errorType || "INVALID_URL", message: e.message };
-    // }
+    try {
+        await assertUrlIsSafe(url);
+    } catch (e) {
+        return { success: false, errorType: e.errorType || "INVALID_URL", message: e.message };
+    }
 
     const outboundHeaders = filterOutboundHeaders(headers || {});
     const finalBody = buildBody(bodyMode, body, formFields, outboundHeaders);
