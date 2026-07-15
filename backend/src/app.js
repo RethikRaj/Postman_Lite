@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import { executeProxyRequest } from "./proxyExceutor.js";
+import { executeProxyRequest } from "./proxyExecutor.js";
 
 export const app = express();
 
