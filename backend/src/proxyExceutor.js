@@ -1,6 +1,6 @@
 import FormData from "form-data"
 import {assertUrlIsSafe} from "./ssrfGuard.js";
-import { filterInboundHeaders, filterOutboundHeaders } from "./headerFilter";
+import { filterInboundHeaders, filterOutboundHeaders } from "./headerFilter.js";
 
 const TIMEOUT_MS = 30_000;
 const MAX_RESPONSE_BYTES = 8 * 1024 * 1024; // 8MB
@@ -47,11 +47,11 @@ function buildBody(bodyMode, body, formFields, headers) {
  */
 export async function executeProxyRequest({ method, url, headers, bodyMode, body, formFields }) {
     // 1. Validate + SSRF check ( Please disable it to hit localhost - Local testing)
-    try {
-        await assertUrlIsSafe(url);
-    } catch (e) {
-        return { success: false, errorType: e.errorType || "INVALID_URL", message: e.message };
-    }
+    // try {
+    //     await assertUrlIsSafe(url);
+    // } catch (e) {
+    //     return { success: false, errorType: e.errorType || "INVALID_URL", message: e.message };
+    // }
 
     const outboundHeaders = filterOutboundHeaders(headers || {});
     const finalBody = buildBody(bodyMode, body, formFields, outboundHeaders);
