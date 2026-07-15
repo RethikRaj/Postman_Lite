@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import { executeProxyRequest } from "./proxyExceutor";
 
 export const app = express();
 
@@ -16,6 +17,39 @@ app.use(express.json({ limit: "10mb" }));
 
 app.get("/ping", (req, res) => {
     res.json({ status: "pong" });
+});
+
+app.post("/api/proxy", async (req, res) => {
+    const { method, url, headers, bodyMode, body, formFields } = req.body || {};
+
+    if (!method || typeof method !== "string") {
+        return res.status(400).json({
+        success: false,
+        errorType: "INVALID_URL",
+        message: "Missing or invalid 'method'",
+        });
+    }
+    if (!url || typeof url !== "string") {
+        return res.status(400).json({
+        success: false,
+        errorType: "INVALID_URL",
+        message: "Missing or invalid 'url'",
+        });
+    }
+
+    const result = await executeProxyRequest({
+        method: method.toUpperCase(),
+        url,
+        headers: headers || {},
+        bodyMode: bodyMode || "none",
+        body,
+        formFields,
+    });
+
+    // Proxy-level failures return 200 with success:false so the frontend
+    // can always read the JSON body consistently (no need to branch on HTTP status
+    // for proxy-vs-target failures).
+    res.status(200).json(result);
 });
 
 

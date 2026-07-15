@@ -63,11 +63,11 @@ export async function executeProxyRequest({ method, url, headers, bodyMode, body
     let response;
     try {
         response = await fetch(url, {
-        method,
-        headers: outboundHeaders,
-        body: method === "GET" || method === "HEAD" ? undefined : finalBody,
-        signal: controller.signal,
-        redirect: "follow",
+            method,
+            headers: outboundHeaders,
+            body: method === "GET" || method === "HEAD" ? undefined : finalBody,
+            signal: controller.signal,
+            redirect: "follow",
         });
     } catch (e) {
         clearTimeout(timeoutId);
